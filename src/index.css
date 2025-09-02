@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .bg-custom-gradient {
+    background: linear-gradient(to right, #3b82f6, #9333ea);
+  }
+  .bg-custom-gradient-2 {
+    background: linear-gradient(to left, #3b82f6, #f43f5e);
+  }
+  .bg-card-gradient {
+    background: linear-gradient(to right, #38b2ac, #4299e1);
+  }
+}

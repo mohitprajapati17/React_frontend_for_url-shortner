@@ -8,6 +8,8 @@ import LandingPage from './components/LandingPage'
 import  NavBar from './components/NavBar'
 import  Footer from './components/Footer'
 import RegisterPage from './components/RegisterPage'
+import LoginPage from './components/LoginPage'
+import DashboardLayout from './components/Dashboard/DashboardLayout'
 
 function App() {
 
@@ -19,9 +21,9 @@ function App() {
       
       <Route path='/' element={<LandingPage />} />
       <Route path='/about' element={<AboutPage />} />
-      <Route path='/register' element={<RegisterPage />} />
-
-
+      <Route path='/signup' element={<RegisterPage />} />
+      <Route path='/login' element={<LoginPage />} />
+      <Route path='/dashboard' element={<DashboardLayout />} />
     </Routes>
     <Footer/>
     </BrowserRouter>

@@ -3,30 +3,30 @@ import api from "../api/api"
 
 
 export const useFetchMyShortUrls = (token, onError) => {
-    return useQuery("my-shortenurls",
-         async () => {
+    return useQuery({
+        queryKey: ["my-shortenurls", { token }],
+        queryFn: async () => {
             return await api.get(
-                "/api/urls/myurls",
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token,
-                },
-            }
-        );
-    },
-          {
-            select: (data) => {
-                const sortedData = data.data.sort(
-                    (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
-                );
-                return sortedData;
-            },
-            onError,
-            staleTime: 5000
-          }
-        );
+                "/api/urls/Urls",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            );
+        },
+        select: (data) => {
+            const sortedData = data.data.sort(
+                (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
+            );
+            return sortedData;
+        },
+        onError,
+        staleTime: 5000,
+        enabled: Boolean(token),
+    });
 };
 
 

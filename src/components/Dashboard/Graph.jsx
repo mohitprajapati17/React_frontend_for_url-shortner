@@ -25,18 +25,18 @@ const Graph = ({ graphData }) => {
 
   const data = {
     labels:
-     graphData.length > 0
+     (graphData  && graphData.length > 0)
         ? labels
         : ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
     datasets: [
       {
         label: "Total Clicks",
         data:
-         graphData.length > 0
+         (graphData && graphData.length > 0)
             ? userPerDaya
             : [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1],
         backgroundColor:
-         graphData.length > 0 ? "#3b82f6" : "rgba(54, 162, 235, 0.1)",
+         (graphData && graphData.length > 0) ? "#3b82f6" : "rgba(54, 162, 235, 0.1)",
         borderColor: "#1D2327",
         pointBorderColor: "red",
         fill: true,

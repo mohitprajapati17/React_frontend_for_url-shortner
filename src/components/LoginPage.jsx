@@ -56,11 +56,17 @@ const LoginPage = () => {
             );
     
             console.log("Login Response:", response);
+            console.log("Response type:", typeof response);
+            console.log("Response starts with 'ey':", response.startsWith("ey"));
+            console.log("Response length:", response.length);
+            console.log("Response contains periods:", (response.match(/\./g) || []).length);
     
             // ✅ Check if response looks like a token
             if (typeof response === "string" && response.startsWith("ey")) {
+                console.log("Setting token:", response);
                 setToken(response);
                 localStorage.setItem("JWT_TOKEN", response);
+                console.log("Token stored in localStorage");
     
                 toast.success("Login Successful!");
                 reset();

@@ -5,7 +5,6 @@ export const useFetchMyShortUrls = (token, onError) => {
     console.log("Fetching with token:", token);
 
   return useQuery({
-
     queryKey: ["my-shortenurls"],
     queryFn: async () =>
       await api.get("/api/urls/Urls", {

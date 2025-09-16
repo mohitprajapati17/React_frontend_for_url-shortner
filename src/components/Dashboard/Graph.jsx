@@ -35,15 +35,25 @@ const Graph = ({ graphData }) => {
          (graphData && graphData.length > 0)
             ? userPerDaya
             : [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1],
-        backgroundColor:
-         (graphData && graphData.length > 0) ? "#3b82f6" : "rgba(54, 162, 235, 0.1)",
-        borderColor: "#1D2327",
-        pointBorderColor: "red",
+        backgroundColor: (context) => {
+          const { chart } = context;
+          const { ctx, chartArea } = chart || {};
+          if (!chartArea) return "rgba(250, 204, 21, 0.6)";
+          const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+          gradient.addColorStop(0, "rgba(250, 204, 21, 0.95)");
+          gradient.addColorStop(1, "rgba(250, 204, 21, 0.35)");
+          return gradient;
+        },
+        borderColor: "#facc15",
+        borderWidth: 1,
+        borderRadius: 0,
+        borderSkipped: false,
         fill: true,
-        tension: 0.4,
-        barThickness: 20,
-        categoryPercentage: 1.5,
-        barPercentage: 1.5,
+        // slightly wider bars
+        barThickness: undefined,
+        maxBarThickness: 36,
+        barPercentage: 0.8,
+        categoryPercentage: 0.8,
       },
     ],
   };
@@ -53,9 +63,23 @@ const Graph = ({ graphData }) => {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
+        display: false,
+        labels: { color: "#e5e7eb" }
+      },
+      tooltip: {
+        backgroundColor: "rgba(0,0,0,0.9)",
+        titleColor: "#facc15",
+        bodyColor: "#e5e7eb",
+        borderColor: "rgba(250,204,21,0.3)",
+        borderWidth: 1,
+        padding: 10,
+        callbacks: {
+          label: (ctx) => `Clicks: ${ctx.parsed.y}`,
+        },
       },
     },
+    layout: { padding: 8 },
+    animation: { duration: 800, easing: "easeOutQuart" },
     scales: {
       y: {
         beginAtZero: true,
@@ -67,17 +91,15 @@ const Graph = ({ graphData }) => {
             }
             return "";
           },
+          color: "#9ca3af",
         },
         title: {
           display: true,
           text: "Number Of Clicks",
-          font: {
-            family: "Arial",
-            size: 16,
-            weight: "bold",
-            color: "#FF0000",
-          },
+          font: { family: "Inter, Arial", size: 14, weight: "600" },
+          color: "#facc15",
         },
+        grid: { color: "rgba(148, 163, 184, 0.12)", drawBorder: false },
       },
       x: {
         beginAtZero: true,
@@ -87,18 +109,17 @@ const Graph = ({ graphData }) => {
         title: {
           display: true,
           text: "Date",
-          font: {
-            family: "Arial",
-            size: 16,
-            weight: "bold",
-            color: "#FF0000",
-          },
+          font: { family: "Inter, Arial", size: 14, weight: "600" },
+          color: "#facc15",
         },
+        ticks: { color: "#9ca3af", autoSkip: false, maxRotation: 0 },
+        offset: true,
+        grid: { color: "rgba(148, 163, 184, 0.08)", drawBorder: false },
       },
     },
   };
 
-  return <Bar className=" w-full" data={data} options={options}></Bar>;
+  return <Bar className="w-full h-full" data={data} options={options} redraw></Bar>;
 };
 
 export default Graph;

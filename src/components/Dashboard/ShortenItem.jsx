@@ -62,10 +62,10 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
     }, [selectedUrl]);
 
   return (
-    <div className={`bg-slate-100 shadow-lg border border-dotted  border-slate-500 px-6 sm:py-1 py-3 rounded-md  transition-all duration-100 `}>
-    <div className={`flex sm:flex-row flex-col  sm:justify-between w-full sm:gap-0 gap-5 py-5 `}>
+    <div className={`gradient-border card-hover rounded-md`}>
+    <div className={`card-surface rounded-[11px] flex sm:flex-row flex-col  sm:justify-between w-full sm:gap-0 gap-5 py-5 px-6 `}>
       <div className="flex-1 sm:space-y-1 max-w-full overflow-x-auto overflow-y-hidden ">
-        <div className="text-slate-900 pb-1 sm:pb-0   flex items-center gap-2 ">
+        <div className="text-yellow-400 pb-1 sm:pb-0   flex items-center gap-2 ">
             {/* <a href={`${import.meta.env.VITE_REACT_SUBDOMAIN}/${shortUrl}`}
                 target="_blank"
                 className=" text-[17px]  font-montserrat font-[600] text-linkColor ">
@@ -74,21 +74,21 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
 
             <Link
               target='_'
-              className='text-[17px]  font-montserrat font-[600] text-linkColor'
+              className='text-[17px]  font-montserrat font-[600] text-yellow-400'
               to={import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}>
                   {subDomain  + `${shortUrl}`}
             </Link>
-            <FaExternalLinkAlt className="text-linkColor" />
+            <FaExternalLinkAlt className="text-yellow-400" />
             </div>
 
         <div className="flex items-center gap-1 ">
-            <h3 className=" text-slate-700 font-[400] text-[17px] ">
+            <h3 className=" text-gray-300 font-[400] text-[17px] ">
               {originalUrl}
             </h3>
           </div>
 
           <div className="flex   items-center gap-8 pt-6 ">
-            <div className="flex gap-1  items-center font-semibold  text-green-800">
+            <div className="flex gap-1  items-center font-semibold  text-green-400">
               <span>
                 <MdOutlineAdsClick className="text-[22px] me-1" />
               </span>
@@ -98,7 +98,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
               </span>
             </div>
 
-            <div className="flex items-center gap-2 font-semibold text-lg text-slate-800">
+            <div className="flex items-center gap-2 font-semibold text-lg text-gray-200">
               <span>
                 <FaRegCalendarAlt />
               </span>
@@ -114,7 +114,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
                 onCopy={() => setIsCopied(true)}
                 text={`${import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}`}
             >
-                <div className="flex cursor-pointer gap-1 items-center bg-blue-500 py-2  font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white ">
+                <div className="flex cursor-pointer gap-1 items-center bg-yellow-500 hover:bg-yellow-400 py-2  font-semibold shadow-md shadow-black/40 px-6 rounded-md text-black ">
                 <button className="  ">{isCopied ? "Copied" : "Copy"}</button>
                 {isCopied ? (
                     <LiaCheckSolid className="text-md" />
@@ -126,7 +126,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
 
             <div
                 onClick={() => analyticsHandler(shortUrl)}
-                className="flex cursor-pointer gap-1 items-center bg-rose-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
+                className="flex cursor-pointer gap-1 items-center bg-yellow-600 hover:bg-yellow-500 py-2 font-semibold shadow-md shadow-black/40 px-6 rounded-md text-black "
             >
                 <button>Analytics</button>
                 <MdAnalytics className="text-md" />
@@ -136,7 +136,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
     <React.Fragment>
         <div className={`${
             analyticToggle ? "flex" : "hidden"
-          }  max-h-96 sm:mt-0 mt-5 min-h-96 relative  border-t-2 w-[100%] overflow-hidden `}>
+          }  sm:mt-0 mt-5 min-h-96 relative  border-t-2 w-full overflow-hidden `}>
             {loader ? (
                 <div className="min-h-[calc(450px-140px)] flex justify-center items-center w-full">
                     <div className="flex flex-col items-center gap-1">
@@ -149,22 +149,26 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
                         wrapperClass=""
                         colors={['#306cce', '#72a1ed']}
                         />
-                        <p className='text-slate-700'>Please Wait...</p>
+                        <p className='text-gray-300'>Please Wait...</p>
                     </div>
                 </div>
                 ) : ( 
                     <>{analyticsData.length === 0 && (
-                        <div className="absolute flex flex-col  justify-center sm:items-center items-end  w-full left-0 top-0 bottom-0 right-0 m-auto">
-                            <h1 className=" text-slate-800 font-serif sm:text-2xl text-[15px] font-bold mb-1">
+                        <div className="absolute flex flex-col justify-center items-center w-full h-full left-0 top-0">
+                            <h1 className=" text-yellow-400 font-serif sm:text-2xl text-[15px] font-bold mb-1">
                                 No Data For This Time Period
                             </h1>
-                            <h3 className="sm:w-96 w-[90%] sm:ml-0 pl-6 text-center sm:text-lg text-[12px] text-slate-600 ">
+                            <h3 className="sm:w-96 w-[90%] sm:ml-0 pl-6 text-center sm:text-lg text-[12px] text-gray-300 ">
                                 Share your short link to view where your engagements are
                                 coming from
                             </h3>
                         </div>
                     )}
-                        <Graph graphData={analyticsData} />
+                        <div className='card-surface rounded-md p-0 w-full'>
+                          <div className='w-full min-h-[420px] h-auto'>
+                            <Graph graphData={analyticsData} />
+                          </div>
+                        </div>
                     </>
                     )}
         </div>

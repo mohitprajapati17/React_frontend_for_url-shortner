@@ -56,13 +56,13 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
 
 
   return (
-    <div className=" flex justify-center items-center bg-white rounded-md">
+    <div className=" flex justify-center items-center">
     <form
         onSubmit={handleSubmit(createShortUrlHandler)}
-        className="sm:w-[450px] w-[360px] relative  shadow-custom pt-8 pb-5 sm:px-8 px-4 rounded-lg"
+        className="sm:w-[480px] w-[360px] relative gradient-border card-hover pt-8 pb-5 sm:px-8 px-4 rounded-lg"
       >
 
-        <h1 className="font-montserrat sm:mt-0 mt-3 text-center  font-bold sm:text-2xl text-[22px] text-slate-800 ">
+        <h1 className="font-montserrat sm:mt-0 mt-3 text-center font-bold sm:text-2xl text-[22px] text-yellow-400 ">
                 Create New Shorten Url
         </h1>
 
@@ -82,7 +82,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
         </div>
 
         <button
-          className="bg-customRed font-semibold text-white w-32  bg-custom-gradient  py-2  transition-colors  rounded-md my-3"
+          className="font-semibold w-32 bg-yellow-500 hover:bg-yellow-400 text-black py-2 transition-colors rounded-md my-3"
           type="text"
         >
           {loading ? "Loading..." : "Create"}
@@ -95,7 +95,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
               onClick={() => setOpen(false)}
               className=" absolute right-2 top-2  "
             >
-              <RxCross2 className="text-slate-800   text-3xl" />
+              <RxCross2 className="text-yellow-400 text-3xl" />
             </button>
           </Tooltip>
         )}

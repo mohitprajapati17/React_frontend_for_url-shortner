@@ -1,13 +1,133 @@
 @import "tailwindcss";
 
+/* Global dark theme */
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #e5e7eb; /* gray-200 */
+}
+
 @layer utilities {
   .bg-custom-gradient {
-    background: linear-gradient(to right, #3b82f6, #9333ea);
+    background: linear-gradient(to right, #111827, #0a0a0a);
   }
   .bg-custom-gradient-2 {
-    background: linear-gradient(to left, #3b82f6, #f43f5e);
+    background: linear-gradient(to left, #111827, #0a0a0a);
   }
   .bg-card-gradient {
-    background: linear-gradient(to right, #38b2ac, #4299e1);
+    background: linear-gradient(180deg, rgba(234,179,8,0.12), rgba(234,179,8,0.04));
+  }
+
+  /* Fancy card visuals */
+  .gradient-border {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px; /* border width */
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(234,179,8,0.6), rgba(234,179,8,0.05) 35%, rgba(234,179,8,0.6) 70%, rgba(234,179,8,0.05));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .card-surface {
+    background: radial-gradient(1200px 500px at -20% -20%, rgba(234,179,8,0.12), transparent),
+                linear-gradient(180deg, rgba(17,24,39,0.9), rgba(10,10,10,0.9));
+  }
+
+  .card-hover {
+    transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 18px 60px -18px rgba(234,179,8,0.45), 0 8px 28px -10px rgba(0,0,0,0.7);
+  }
+
+  .card-hover:hover .card-surface {
+    background: radial-gradient(1200px 500px at -20% -20%, rgba(234,179,8,0.18), transparent),
+                linear-gradient(180deg, rgba(17,24,39,0.92), rgba(10,10,10,0.92));
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-sway {
+    animation: sway 8s ease-in-out infinite;
+  }
+  .animate-hue {
+    animation: hue 10s linear infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes sway {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    50% { transform: translateX(6px) rotate(1.5deg); }
+  }
+  @keyframes hue {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+
+  /* Animated gradient text for hero headline */
+  .animated-gradient-text {
+    background: linear-gradient(90deg, #fef08a, #facc15, #fde047, #facc15, #fef08a);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    animation: gradientShift 6s ease-in-out infinite;
+  }
+  .text-glow-yellow {
+    text-shadow: 0 0 8px rgba(234,179,8,0.35), 0 0 24px rgba(234,179,8,0.15);
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Per-letter wave effect */
+  .wave-char {
+    display: inline-block;
+    animation: wave 2.4s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  /* Masked sliding reveal for paragraph text */
+  .masked-reveal {
+    position: relative;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+    -webkit-mask-size: 200% 100%;
+            mask-size: 200% 100%;
+    -webkit-mask-position: 0% 0;
+            mask-position: 0% 0;
+    animation: maskSlide 4.5s ease-in-out infinite;
+  }
+  @keyframes maskSlide {
+    0% { -webkit-mask-position: 0% 0; mask-position: 0% 0; }
+    50% { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+    100% { -webkit-mask-position: 0% 0; mask-position: 0% 0; }
+  }
+  @keyframes wave {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    25% { transform: translateY(-6px) scale(1.02); opacity: 0.95; }
+    50% { transform: translateY(0) scale(1); opacity: 1; }
+    75% { transform: translateY(6px) scale(0.98); opacity: 0.95; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
   }
 }

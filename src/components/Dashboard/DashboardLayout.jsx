@@ -26,28 +26,55 @@ const DashboardLayout = () => {
     }
 
   return (
-    <div className="lg:px-14 sm:px-8 px-4 min-h-[calc(100vh-64px)]">
+    <div className="lg:px-14 sm:px-8 px-4 min-h-[calc(100vh-64px)] bg-black">
         {loader ? ( 
             <Loader />
         ): ( 
         <div className="lg:w-[90%] w-full mx-auto py-16">
-            <div className=" h-96 relative ">
+            <div className="mb-6">
+              <h1 className="text-yellow-400 font-bold text-2xl">Dashboard</h1>
+              <p className="text-gray-300 text-sm">Overview of your links and activity</p>
+            </div>
+
+            <div className="grid sm:grid-cols-3 grid-cols-1 gap-4 mb-8">
+              <div className="gradient-border rounded-lg card-hover">
+                <div className="card-surface rounded-[11px] p-4">
+                  <p className="text-gray-300 text-sm">Total Links</p>
+                  <p className="text-yellow-400 text-3xl font-bold">{(myShortenUrls && myShortenUrls.length) || 0}</p>
+                </div>
+              </div>
+              <div className="gradient-border rounded-lg card-hover">
+                <div className="card-surface rounded-[11px] p-4">
+                  <p className="text-gray-300 text-sm">Total Clicks</p>
+                  <p className="text-yellow-400 text-3xl font-bold">{(totalClicks && totalClicks.reduce((a,b)=>a + (b.count||0),0)) || 0}</p>
+                </div>
+              </div>
+              <div className="gradient-border rounded-lg card-hover">
+                <div className="card-surface rounded-[11px] p-4">
+                  <p className="text-gray-300 text-sm">Active This Month</p>
+                  <p className="text-yellow-400 text-3xl font-bold">{(totalClicks && totalClicks.length) || 0}</p>
+                </div>
+              </div>
+            </div>
+            <div className=" h-[420px] relative gradient-border card-hover rounded-xl">
                 {totalClicks&&totalClicks.length === 0 && (
-                     <div className="absolute flex flex-col  justify-center sm:items-center items-end  w-full left-0 top-0 bottom-0 right-0 m-auto">
-                     <h1 className=" text-slate-800 font-serif sm:text-2xl text-[18px] font-bold mb-1">
+                     <div className="absolute flex flex-col justify-center sm:items-center items-end w-full left-0 top-0 bottom-0 right-0 m-auto">
+                     <h1 className=" text-yellow-400 font-serif sm:text-2xl text-[18px] font-bold mb-1">
                        No Data For This Time Period
                      </h1>
-                     <h3 className="sm:w-96 w-[90%] sm:ml-0 pl-6 text-center sm:text-lg text-sm text-slate-600 ">
+                     <h3 className="sm:w-96 w-[90%] sm:ml-0 pl-6 text-center sm:text-lg text-sm text-gray-300 ">
                        Share your short link to view where your engagements are
                        coming from
                      </h3>
                    </div>
                 )}
-                <Graph graphData={totalClicks} />
+                <div className="card-surface rounded-[11px] p-3 h-full">
+                  <Graph graphData={totalClicks} />
+                </div>
             </div>
             <div className='py-5 sm:text-end text-center'>
                 <button
-                    className='bg-custom-gradient px-4 py-2 rounded-md text-white'
+                    className='bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-4 py-2 rounded-md'
                     onClick={() => setShortenPopUp(true)}>
                     Create a New Short URL
                 </button>
@@ -56,8 +83,8 @@ const DashboardLayout = () => {
             <div>
               {!isLoading && myShortenUrls&&myShortenUrls.length === 0 ? (
                 <div className="flex justify-center pt-16">
-                  <div className="flex gap-2 items-center justify-center  py-6 sm:px-8 px-5 rounded-md   shadow-lg  bg-gray-50">
-                    <h1 className="text-slate-800 font-montserrat   sm:text-[18px] text-[14px] font-semibold mb-1 ">
+                  <div className="flex gap-2 items-center justify-center py-6 sm:px-8 px-5 rounded-md shadow-lg card-surface">
+                    <h1 className="text-gray-200 font-montserrat sm:text-[18px] text-[14px] font-semibold mb-1 ">
                       You haven't created any short link yet
                     </h1>
                     <FaLink className="text-blue-500 sm:text-xl text-sm " />

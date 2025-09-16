@@ -8,6 +8,7 @@ import RegisterPage from './components/RegisterPage'
 import LoginPage from './components/LoginPage'
 import DashboardLayout from './components/Dashboard/DashboardLayout'
 import PrivateRoute from './PrivateRoute'
+import ErrorPage from './components/ErrorPage'
 
 
 const AppRouter=()=>{
@@ -21,6 +22,7 @@ const AppRouter=()=>{
       <Route path='/register' element={<PrivateRoute publicPage={true} ><RegisterPage/> </PrivateRoute>}/>
       <Route path='/login' element={<PrivateRoute publicPage={true}  > <LoginPage />  </PrivateRoute>} />
       <Route path='/dashboard' element={<PrivateRoute publicPage={false} >  <DashboardLayout />  </PrivateRoute>} />
+      <Route path="*" element ={<ErrorPage/>}/>
     </Routes>
     <Footer/>
 

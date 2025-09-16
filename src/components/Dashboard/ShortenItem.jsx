@@ -11,7 +11,7 @@ import { useStoreContext } from '../../contextApi/ContextApi';
 import { Hourglass } from 'react-loader-spinner';
 import Graph from './Graph';
 
-const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
+const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
     const { token } = useStoreContext();
     const navigate = useNavigate();
     const [isCopied, setIsCopied] = useState(false);
@@ -76,7 +76,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
               target='_'
               className='text-[17px]  font-montserrat font-[600] text-linkColor'
               to={import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}>
-                  {subDomain + "/" + `${shortUrl}`}
+                  {subDomain  + `${shortUrl}`}
             </Link>
             <FaExternalLinkAlt className="text-linkColor" />
             </div>
@@ -92,9 +92,9 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
               <span>
                 <MdOutlineAdsClick className="text-[22px] me-1" />
               </span>
-              <span className="text-[16px]">{clickCount}</span>
+              <span className="text-[16px]">{clickcount}</span>
               <span className="text-[15px] ">
-                {clickCount === 0 || clickCount === 1 ? "Click" : "Clicks"}
+                {clickcount === 0 || clickcount === 1 ? "Click" : "Clicks"}
               </span>
             </div>
 
@@ -103,7 +103,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                 <FaRegCalendarAlt />
               </span>
               <span className="text-[17px]">
-                {dayjs(createdDate).format("MMM DD, YYYY")}
+                {dayjs(createDate).format("MMM DD, YYYY")}
               </span>
             </div>
             </div>
@@ -114,8 +114,8 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                 onCopy={() => setIsCopied(true)}
                 text={`${import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}`}
             >
-                <div className="flex cursor-pointer gap-1 items-center bg-btnColor py-2  font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white ">
-                <button className="">{isCopied ? "Copied" : "Copy"}</button>
+                <div className="flex cursor-pointer gap-1 items-center bg-blue-500 py-2  font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white ">
+                <button className="  ">{isCopied ? "Copied" : "Copy"}</button>
                 {isCopied ? (
                     <LiaCheckSolid className="text-md" />
                 ) : (

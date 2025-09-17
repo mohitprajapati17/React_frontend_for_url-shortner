@@ -18,7 +18,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
     const [selectedUrl, setSelectedUrl] = useState("");
     const [analyticsData, setAnalyticsData] = useState([]);
 
-    const subDomain = import.meta.env.VITE_REACT_SUBDOMAIN.replace(
+    const subDomain = import.meta.env.VITE_REACT_FRONT_END_URL.replace(
         /^https?:\/\//,
         ""
       );
@@ -73,8 +73,8 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
             <Link
               target='_'
               className='text-[17px]  font-montserrat font-[600] text-yellow-400'
-              to={import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}>
-                  {subDomain  + `${shortUrl}`}
+              to={import.meta.env.VITE_REACT_FRONT_END_URL+ "/s/" + `${shortUrl}`}>
+                  {subDomain  +'/s/'+ `${shortUrl}`}
             </Link>
             <FaExternalLinkAlt className="text-yellow-400" />
             </div>
@@ -111,7 +111,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
             <div 
                 onClick={async () => {
                     try {
-                        await navigator.clipboard.writeText(`${import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}`);
+                        await navigator.clipboard.writeText(`${import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${shortUrl}`}`);
                         setIsCopied(true);
                         setTimeout(() => setIsCopied(false), 2000);
                     } catch (err) {

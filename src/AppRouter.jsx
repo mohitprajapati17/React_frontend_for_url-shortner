@@ -22,6 +22,7 @@ const AppRouter=()=>{
       <Route path='/register' element={<PrivateRoute publicPage={true} ><RegisterPage/> </PrivateRoute>}/>
       <Route path='/login' element={<PrivateRoute publicPage={true}  > <LoginPage />  </PrivateRoute>} />
       <Route path='/dashboard' element={<PrivateRoute publicPage={false} >  <DashboardLayout />  </PrivateRoute>} />
+      <Route path='/s/:url' element={<ShortenUrlPage />} />
       <Route path="*" element ={<ErrorPage/>}/>
     </Routes>
     <Footer/>

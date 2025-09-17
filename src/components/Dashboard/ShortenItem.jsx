@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react'
-import CopyToClipboard from 'react-copy-to-clipboard';
 import { FaExternalLinkAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { IoCopy } from 'react-icons/io5';
 import { LiaCheckSolid } from 'react-icons/lia';
@@ -8,7 +7,6 @@ import { MdAnalytics, MdOutlineAdsClick } from 'react-icons/md';
 import api from '../../api/api';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStoreContext } from '../../contextApi/ContextApi';
-import { Hourglass } from 'react-loader-spinner';
 import Graph from './Graph';
 
 const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
@@ -110,19 +108,25 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
         </div>
 
         <div className="flex  flex-1  sm:justify-end items-center gap-4">
-            <CopyToClipboard
-                onCopy={() => setIsCopied(true)}
-                text={`${import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}`}
+            <div 
+                onClick={async () => {
+                    try {
+                        await navigator.clipboard.writeText(`${import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}`);
+                        setIsCopied(true);
+                        setTimeout(() => setIsCopied(false), 2000);
+                    } catch (err) {
+                        console.error('Failed to copy: ', err);
+                    }
+                }}
+                className="flex cursor-pointer gap-1 items-center bg-yellow-500 hover:bg-yellow-400 py-2  font-semibold shadow-md shadow-black/40 px-6 rounded-md text-black "
             >
-                <div className="flex cursor-pointer gap-1 items-center bg-yellow-500 hover:bg-yellow-400 py-2  font-semibold shadow-md shadow-black/40 px-6 rounded-md text-black ">
                 <button className="  ">{isCopied ? "Copied" : "Copy"}</button>
                 {isCopied ? (
                     <LiaCheckSolid className="text-md" />
                 ) : (
                     <IoCopy className="text-md" />
                 )}
-                </div>
-            </CopyToClipboard>
+            </div>
 
             <div
                 onClick={() => analyticsHandler(shortUrl)}
@@ -140,15 +144,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
             {loader ? (
                 <div className="min-h-[calc(450px-140px)] flex justify-center items-center w-full">
                     <div className="flex flex-col items-center gap-1">
-                    <Hourglass
-                        visible={true}
-                        height="50"
-                        width="50"
-                        ariaLabel="hourglass-loading"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                        colors={['#306cce', '#72a1ed']}
-                        />
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>
                         <p className='text-gray-300'>Please Wait...</p>
                     </div>
                 </div>

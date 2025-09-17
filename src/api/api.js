@@ -1,5 +1,5 @@
 import axios  from "axios";
 export default axios.create({
-    baseURL: '/',
+    baseURL: 'https://url-shortner-puo8.onrender.com',
 })
 

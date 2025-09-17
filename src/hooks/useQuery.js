@@ -21,7 +21,12 @@ export const useFetchMyShortUrls = (token, onError) => {
       return sortedData;
     },
     onError,
-    staleTime: 5000,
+    enabled: !!token,
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
   });
 };
 
@@ -49,6 +54,11 @@ export const useFetchTotalClicks = (token, onError) => {
       return convertToArray;
     },
     onError,
-    staleTime: 5000,
+    enabled: !!token,
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
   });
 };

@@ -5,7 +5,7 @@ export const useFetchMyShortUrls = (token, onError) => {
     console.log("Fetching with token:", token);
 
   return useQuery({
-    queryKey: ["my-shortenurls"],
+    queryKey: ["my-shortenurls", token],
     queryFn: async () =>
       await api.get("/api/urls/Urls", {
         headers: {
@@ -34,7 +34,7 @@ export const useFetchTotalClicks = (token, onError) => {
     console.log("Fetching total clicks with token:", token);
 
   return useQuery({
-    queryKey: ["url-totalclick"],
+    queryKey: ["url-totalclick", token],
     queryFn: async () =>
       await api.get(
         "/api/urls/totalClicks?startDate=2024-01-01&endDate=2025-12-31",

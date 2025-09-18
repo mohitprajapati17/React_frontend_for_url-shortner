@@ -12,9 +12,10 @@ import ErrorPage from './components/ErrorPage'
 
 
 const AppRouter=()=>{
+    const hideHeaderFooter=location.pathname.startsWith('/s')
     return (
     <>
-    <Navbar/>
+    {!hideHeaderFooter&&<Navbar/>}
     <Routes>
       
       <Route path='/' element={<LandingPage />} />
@@ -25,7 +26,7 @@ const AppRouter=()=>{
       <Route path='/s/:url' element={<ShortenUrlPage />} />
       <Route path="*" element ={<ErrorPage/>}/>
     </Routes>
-    <Footer/>
+    {!hideHeaderFooter&&<Footer/>}
 
     </>
     )

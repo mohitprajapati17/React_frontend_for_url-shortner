@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosMenu } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { useStoreContext } from "../contextApi/ContextApi";
+import { queryClient } from "../main";
 
 
 const Navbar = () => {
@@ -14,6 +15,8 @@ const Navbar = () => {
   const onLogOutHandler = () => {
     setToken(null);
     localStorage.removeItem("JWT_TOKEN");
+    // Clear all cached queries to avoid showing previous user's data
+    queryClient.clear();
     navigate("/login");
   };
 

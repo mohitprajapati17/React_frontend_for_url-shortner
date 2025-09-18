@@ -57,7 +57,7 @@ const DashboardLayout = () => {
               </div>
             </div>
             <div className=" h-[420px] relative gradient-border card-hover rounded-xl">
-                {totalClicks&&totalClicks.length === 0 && (
+                {(Array.isArray(totalClicks) && totalClicks.length === 0) && (
                      <div className="absolute flex flex-col justify-center sm:items-center items-end w-full left-0 top-0 bottom-0 right-0 m-auto">
                      <h1 className=" text-yellow-400 font-serif sm:text-2xl text-[18px] font-bold mb-1">
                        No Data For This Time Period
@@ -69,7 +69,7 @@ const DashboardLayout = () => {
                    </div>
                 )}
                 <div className="card-surface rounded-[11px] p-3 h-full">
-                  <Graph graphData={totalClicks} />
+                  <Graph graphData={Array.isArray(totalClicks) ? totalClicks : []} />
                 </div>
             </div>
             <div className='py-5 sm:text-end text-center'>
@@ -81,7 +81,7 @@ const DashboardLayout = () => {
             </div>
 
             <div>
-              {!isLoading && myShortenUrls&&myShortenUrls.length === 0 ? (
+              {!isLoading && Array.isArray(myShortenUrls) && myShortenUrls.length === 0 ? (
                 <div className="flex justify-center pt-16">
                   <div className="flex gap-2 items-center justify-center py-6 sm:px-8 px-5 rounded-md shadow-lg card-surface">
                     <h1 className="text-gray-200 font-montserrat sm:text-[18px] text-[14px] font-semibold mb-1 ">
@@ -91,7 +91,7 @@ const DashboardLayout = () => {
                   </div>
               </div>
               ) : (
-                  <ShortenUrlList data={myShortenUrls} />
+                  <ShortenUrlList data={Array.isArray(myShortenUrls) ? myShortenUrls : []} />
               )}
             </div>
         </div>

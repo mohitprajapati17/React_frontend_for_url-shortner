@@ -8,5 +8,5 @@ export default function PrivateRoute({ children, publicPage}) {
         return token ? <Navigate to="/dashboard" /> : children;
     }
 
-    return !token ? <Navigate to="/login" /> : children;
+    return !token ? <Navigate to="/register" /> : children;
 }

@@ -1,38 +1,60 @@
+// Import dayjs library for date formatting
 import dayjs from 'dayjs';
+// Import React hooks for component state management and side effects
 import React, { useEffect, useState } from 'react'
+// Import various icons from react-icons for UI elements
 import { FaExternalLinkAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { IoCopy } from 'react-icons/io5';
 import { LiaCheckSolid } from 'react-icons/lia';
 import { MdAnalytics, MdOutlineAdsClick } from 'react-icons/md';
+// Import configured axios instance for API calls
 import api from '../../api/api';
+// Import React Router components for navigation and linking
 import { Link, useNavigate } from 'react-router-dom';
+// Import custom context hook for accessing authentication state
 import { useStoreContext } from '../../contextApi/ContextApi';
+// Import Graph component for displaying analytics charts
 import Graph from './Graph';
 
+// Component that displays individual shortened URL item with analytics and management features
 const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
+    // Get authentication token from global context
     const { token } = useStoreContext();
+    // Hook to programmatically navigate to different routes
     const navigate = useNavigate();
+    // State to track if URL has been copied to clipboard
     const [isCopied, setIsCopied] = useState(false);
+    // State to control analytics section visibility
     const [analyticToggle, setAnalyticToggle] = useState(false);
+    // State to manage loading state during analytics fetch
     const [loader, setLoader] = useState(false);
+    // State to store the selected URL for analytics
     const [selectedUrl, setSelectedUrl] = useState("");
+    // State to store fetched analytics data
     const [analyticsData, setAnalyticsData] = useState([]);
 
+    // Extract subdomain from environment variable for URL display
     const subDomain = import.meta.env.VITE_REACT_FRONT_END_URL.replace(
         /^https?:\/\//,
         ""
       );
 
+    // Function to handle analytics toggle and URL selection
     const analyticsHandler = (shortUrl) => {
+        // If analytics is not currently shown, set the selected URL
         if (!analyticToggle) {
             setSelectedUrl(shortUrl);
         }
+        // Toggle analytics visibility
         setAnalyticToggle(!analyticToggle);
     }
 
+    // Function to fetch analytics data for a specific shortened URL
     const fetchMyShortUrl = async () => {
+        // Set loading state to true
         setLoader(true);
         try {
+             // Make API call to fetch analytics data with date range
              const { data } = await api.get(`/api/urls/analytics/${selectedUrl}?startDate=2024-12-01T00:00:00&endDate=2025-12-31T23:59:59`, {
                         headers: {
                           "Content-Type": "application/json",
@@ -40,19 +62,23 @@ const ShortenItem = ({ originalUrl, shortUrl, clickcount, createDate }) => {
                           Authorization: "Bearer " + token,
                         },
                       });
+            // Store fetched analytics data
             setAnalyticsData(data);
+            // Clear selected URL
             setSelectedUrl("");
             console.log(data);
             
         } catch (error) {
+            // Navigate to error page on API failure
             navigate("/error");
             console.log(error);
         } finally {
+            // Always set loading state to false
             setLoader(false);
         }
     }
 
-
+    // Effect hook to fetch analytics when a URL is selected
     useEffect(() => {
         if (selectedUrl) {
             fetchMyShortUrl();
